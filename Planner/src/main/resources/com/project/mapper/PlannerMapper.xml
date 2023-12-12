@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.PlannerMapper">
+
+	<!-- 전체 마커 확인 -->
+	<select id="selectMarkers" resultType="com.project.domain.PlannerVO">
+         SELECT 
+         	marker_id, 
+         	marker_title,
+         	marker_cost,
+         	marker_time, 
+         	marker_page 
+         FROM 
+         	Marker
+	</select>
+  
+  	<!-- 지정 마커 확인 -->
+	<select id="selectMarker" resultType="com.project.domain.PlannerVO">
+         SELECT 
+         	marker_id, 
+         	marker_title,
+         	marker_cost,
+         	marker_time, 
+         	marker_page 
+         FROM 
+         	Marker
+         WHERE
+         	marker_id = #{marker_id}
+	</select>
+	
+	<!-- 마커 삽입 -->
+	<insert id="insertMarker">
+         INSERT INTO 
+         	Marker (marker_id, 
+         	marker_title,
+         	marker_cost,
+         	marker_time, 
+         	marker_page)
+         VALUES 
+         	(#{marker_id}, #{marker_title}, #{marker_cost}, #{marker_time}, #{marker_page})
+	</insert>
+	
+	
+	<resultMap id="PlannerResultMap" type="com.project.domain.PlannerVO">
+        <id property="marker_id" column="marker_id"/>
+        <result property="marker_title" column="marker_title"/>
+        <result property="marker_cost" column="marker_cost"/>
+        <result property="marker_time" column="marker_time"/>
+        <result property="marker_page" column="marker_page"/>
+    </resultMap>
+
+    <insert id="insertPlanner" parameterType="com.project.domain.PlannerVO">
+        <![CDATA[
+        INSERT INTO 
+        	Marker (marker_title, marker_cost, marker_time, marker_page)
+        VALUES 
+        	(#{marker_title}, #{marker_cost}, #{marker_time}, #{marker_page})
+        ]]>
+    </insert>
+    
+    <!-- 박스구성 -->
+    <select id="getAllMarkers" resultType="com.project.domain.PlannerVO">
+     SELECT 
+       	marker_id, 
+       	marker_title,
+       	marker_cost,
+       	marker_time, 
+       	marker_page 
+     FROM 
+       	Marker
+     ORDER BY
+     	marker_id
+	</select>
+	
+</mapper>
